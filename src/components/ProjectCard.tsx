@@ -3,7 +3,7 @@
 import type React from "react"
 import { Card, CardActions, Button, Typography, Stack, Box, Chip } from "@mui/material"
 import { motion } from "framer-motion"
-import { TechIcon } from "./TechIcons"
+//import { TechIcon } from "./TechIcons"
 import type { FrontendProject } from "./data/projects"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 import GitHubIcon from "@mui/icons-material/GitHub"
@@ -66,16 +66,7 @@ export const ProjectCard: React.FC<{
           >
             {project.title}
           </Typography>
-          <Chip
-            label={project.techStack[0]}
-            size="small"
-            sx={{
-              background: "linear-gradient(90deg, #6366f1, #ec4899)",
-              color: "white",
-              fontWeight: 500,
-              fontSize: "0.7rem",
-            }}
-          />
+          
         </Box>
 
         <Typography
@@ -106,7 +97,16 @@ export const ProjectCard: React.FC<{
         >
           {project.techStack.map((tech) => (
             <motion.div key={tech} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <TechIcon tech={tech} />
+              <Chip
+            label={tech}
+            size="small"
+            sx={{
+              background: "linear-gradient(90deg, #6366f1, #ec4899)",
+              color: "white",
+              fontWeight: 500,
+              fontSize: "0.7rem",
+            }}
+          />
             </motion.div>
           ))}
         </Stack>

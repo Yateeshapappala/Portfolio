@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Container, Typography, Box, Button } from "@mui/material"
+import { Container, Typography, Box, } from "@mui/material"
 import { motion } from "framer-motion"
 import { projects, type FrontendProject } from "../components/data/projects"
 import ProjectModal from "../components/ProjectModal"
@@ -9,8 +9,6 @@ import { ProjectCard } from "../components/ProjectCard"
 import HeroSection from "../components/HeroSection"
 import Navbar from "../components/NavBar"
 import Footer from "../components/Footer"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-
 const Home = () => {
   const [selectedProject, setSelectedProject] = useState<FrontendProject>(projects[0])
   const [modalOpen, setModalOpen] = useState(false)
@@ -48,20 +46,6 @@ const Home = () => {
               >
                 Featured Projects
               </Typography>
-              {/* <Button
-                variant="outlined"
-                endIcon={<ArrowForwardIcon />}
-                sx={{
-                  borderColor: "#6366f1",
-                  color: "#6366f1",
-                  "&:hover": {
-                    borderColor: "#4f46e5",
-                    backgroundColor: "rgba(99, 102, 241, 0.04)",
-                  },
-                }}
-              >
-                View All
-              </Button> */}
             </Box>
           </motion.div>
 
@@ -116,14 +100,13 @@ const Home = () => {
         </Box>
 
         {/* Contact Section */}
-        <Box my={8} id="Contact">
+        <Box my={2} id="Contact">
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
             Contact
           </Typography>
           <Typography>Feel free to reach out via LinkedIn, GitHub, or email!</Typography>
         </Box>
       </Container>
-
       <ProjectModal open={modalOpen} onClose={() => setModalOpen(false)} project={selectedProject} />
       <Footer />
     </>

@@ -4,7 +4,6 @@ import type React from "react"
 import { Box, Typography, Button, Container } from "@mui/material"
 import { motion } from "framer-motion"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-
 const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () => void }> = ({ handleViewProjects, handleContact  }) => {
   return (
     <Box
@@ -148,6 +147,16 @@ const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () 
                   alignItems: "center",
                 }}
               >
+                {/* <img
+                  src="/images/profile.png"
+                  alt="Portfolio"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "24px",
+                  }}
+                /> */}
                 <Typography variant="h4" color="white" fontWeight={700} sx={{ textAlign: "center", p: 2 }}>
                   Your Portfolio Image Here
                 </Typography>

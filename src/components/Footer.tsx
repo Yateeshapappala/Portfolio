@@ -9,6 +9,8 @@ import TwitterIcon from "@mui/icons-material/Twitter"
 import InstagramIcon from "@mui/icons-material/Instagram"
 
 const Footer: React.FC = () => {
+
+  
   return (
     <Box
       component="footer"
@@ -42,7 +44,7 @@ const Footer: React.FC = () => {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              YATEESHA PORTFOLIO
+              Yateesha Portfolio
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               A showcase of my frontend development projects and skills, built with React, TypeScript, and Material UI.
@@ -77,7 +79,7 @@ const Footer: React.FC = () => {
           </Box>
 
           {/* Section 2 - Navigation */}
-          <Box sx={{ flex: { xs: "1 1 50%", md: "1 1 15%" } }}>
+          {/* <Box sx={{ flex: { xs: "1 1 50%", md: "1 1 15%" } }}>
             <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 2 }}>
               Navigation
             </Typography>
@@ -105,7 +107,7 @@ const Footer: React.FC = () => {
                 </Box>
               ))}
             </Box>
-          </Box>
+          </Box> */}
 
           {/* Section 3 - Resources */}
           <Box sx={{ flex: { xs: "1 1 50%", md: "1 1 15%" } }}>
@@ -114,10 +116,10 @@ const Footer: React.FC = () => {
             </Typography>
             <Box component="ul" sx={{ p: 0, m: 0, listStyle: "none" }}>
               {[
-                { label: "Blog", href: "https://medium.com/@yateesha" },
-                { label: "Documentation", href: "/docs" },
-                { label: "GitHub", href: "https://github.com/yateesha" },
-                { label: "LinkedIn", href: "https://www.linkedin.com/in/yateesha" },
+                { label: "Blog", href: "#" },
+                { label: "Documentation", href: "#" },
+                { label: "GitHub", href: "https://github.com/Yateeshapappala" },
+                { label: "LinkedIn", href: "https://www.linkedin.com/in/yateesha-pappala-11047922a/" },
               ].map(({ label, href }) => (
                 <Box component="li" key={label} sx={{ mb: 1 }}>
                   <Link
