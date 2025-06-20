@@ -4,7 +4,11 @@ import type React from "react"
 import { Box, Typography, Button, Container } from "@mui/material"
 import { motion } from "framer-motion"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () => void }> = ({ handleViewProjects, handleContact  }) => {
+
+const HeroSection: React.FC<{
+  handleViewProjects: () => void
+  handleContact: () => void
+}> = ({ handleViewProjects, handleContact }) => {
   return (
     <Box
       sx={{
@@ -24,13 +28,14 @@ const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () 
             gap: 8,
           }}
         >
+          {/* Left Section */}
           <Box sx={{ flex: 1 }}>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <Typography
                 variant="h2"
                 component="h1"
                 sx={{
-                  fontSize: { xs: "2.5rem", md: "3.5rem" },
+                  fontSize: { xs: "2.4rem", md: "3.4rem" },
                   fontWeight: 800,
                   mb: 2,
                   background: "linear-gradient(90deg, #6366f1, #ec4899)",
@@ -38,7 +43,7 @@ const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () 
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                Frontend Developer & UI Designer
+                Full-Stack Developer & ML Enthusiast
               </Typography>
             </motion.div>
 
@@ -56,10 +61,11 @@ const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () 
                   lineHeight: 1.5,
                 }}
               >
-                Creating beautiful, responsive, and user-friendly web applications with modern technologies.
+                I build scalable web applications and AI solutions using modern technologies like React, Node.js, and TensorFlow.
               </Typography>
             </motion.div>
 
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -98,28 +104,32 @@ const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () 
               </Box>
             </motion.div>
 
+            {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
               <Box sx={{ display: "flex", gap: 3, mt: 6 }}>
-                {[{ number: "4+", label: "Years Experience" }, { number: "20+", label: "Projects Completed" }, { number: "10+", label: "Happy Clients" }].map(
-                  (item, idx) => (
-                    <Box key={idx}>
-                      <Typography variant="h3" fontWeight={700} color="primary">
-                        {item.number}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {item.label}
-                      </Typography>
-                    </Box>
-                  )
-                )}
+                {[
+                  { number: "3+", label: "Projects in Production" },
+                  { number: "93.3%", label: "ML Model Accuracy" },
+                  { number: "500+", label: "Users Impacted" },
+                ].map((item, idx) => (
+                  <Box key={idx}>
+                    <Typography variant="h3" fontWeight={700} color="primary">
+                      {item.number}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.label}
+                    </Typography>
+                  </Box>
+                ))}
               </Box>
             </motion.div>
           </Box>
 
+          {/* Profile Image */}
           <Box sx={{ flex: 1 }}>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -147,22 +157,19 @@ const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () 
                   alignItems: "center",
                 }}
               >
-                {/* <img
+                <img
                   src="/images/profile.png"
-                  alt="Portfolio"
+                  alt="Yateesha Pappala profile picture"
                   style={{
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
                     borderRadius: "24px",
                   }}
-                /> */}
-                <Typography variant="h4" color="white" fontWeight={700} sx={{ textAlign: "center", p: 2 }}>
-                  Your Portfolio Image Here
-                </Typography>
+                />
               </Box>
 
-              {/* Decorative elements */}
+              {/* Blurred Decorations */}
               <Box
                 sx={{
                   position: "absolute",
@@ -194,6 +201,7 @@ const HeroSection: React.FC<{ handleViewProjects: () => void; handleContact: () 
         </Box>
       </Container>
 
+      {/* Background Gradient Decorations */}
       <Box
         sx={{
           position: "absolute",

@@ -68,26 +68,32 @@ const NavBar: React.FC<NavbarProps> = ({ window }) => {
         ))}
         <ListItem disablePadding>
           <ListItemButton sx={{ justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              sx={{
-                background: "linear-gradient(90deg, #6366f1, #ec4899)",
-                "&:hover": {
-                  background: "linear-gradient(90deg, #4f46e5, #db2777)",
-                },
-                width: "100%",
-              }}
-            >
-              Resume
-            </Button>
+           <Button
+  variant="contained"
+  component="a"
+  href="https://drive.google.com/file/d/1uVjXgZCgrcDFn3sEIvWlxgIVnRA8muSG/view?usp=sharing"
+  target="_blank"
+  rel="noopener"
+  sx={{
+    background: "linear-gradient(90deg, #6366f1, #ec4899)",
+    "&:hover": {
+      background: "linear-gradient(90deg, #4f46e5, #db2777)",
+    },
+    width: "100%",
+  }}
+>
+  Resume
+</Button>
+
           </ListItemButton>
         </ListItem>
       </List>
       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 2 }}>
-        <IconButton color="primary"><GitHubIcon /></IconButton>
-        <IconButton color="primary"><LinkedInIcon /></IconButton>
-        <IconButton color="primary"><EmailIcon /></IconButton>
-      </Box>
+  <IconButton component="a" href="https://github.com/Yateeshapappala" target="_blank" rel="noopener" color="primary"><GitHubIcon /></IconButton>
+  <IconButton component="a" href="https://www.linkedin.com/in/yateesha-pappala-11047922a/" target="_blank" rel="noopener" color="primary"><LinkedInIcon /></IconButton>
+  <IconButton component="a" href="mailto:yateeshapappala@gmail.com" color="primary"><EmailIcon /></IconButton>
+</Box>
+
     </Box>
   )
 
@@ -116,7 +122,7 @@ const NavBar: React.FC<NavbarProps> = ({ window }) => {
                     display: { xs: "none", sm: "block" },
                   }}
                 >
-                  Yateesh Portfolio
+                   Yateesha Portfolio
                 </Typography>
 
                 {/* Desktop nav items */}

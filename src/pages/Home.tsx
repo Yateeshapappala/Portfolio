@@ -75,11 +75,9 @@ const Home = () => {
             </Typography>
           </motion.div>
           <RadarChart
-            labels={["React", "TypeScript", "CSS", "MUI", "Redux", "Node.js", "Express", "MongoDB"]}
-            data={[95, 90, 85, 88, 80, 75, 70, 65]}
           />
         </Box>
-
+              
         {/* Demo Section */}
         <Box my={8} id="Demo">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

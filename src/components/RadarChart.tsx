@@ -2,13 +2,24 @@
 
 import type React from "react"
 import { Radar } from "react-chartjs-2"
-import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js"
-import { Box, Typography, Paper } from "@mui/material"
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from "chart.js"
+import { Box, Typography, Paper, Chip } from "@mui/material"
 import { motion } from "framer-motion"
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
 
-const RadarChart: React.FC<{ data: number[]; labels: string[] }> = ({ data, labels }) => {
+const RadarChart: React.FC = () => {
+  const labels = ["Python", "React.js", "TensorFlow", "Node.js", "TypeScript", "MongoDB"]
+  const data = [90, 85, 80, 75, 80, 70]
+
   const chartData = {
     labels,
     datasets: [
@@ -72,6 +83,11 @@ const RadarChart: React.FC<{ data: number[]; labels: string[] }> = ({ data, labe
     },
   }
 
+  const additionalSkills = [
+    "C++", "Java", "HTML", "CSS", "Express.js", "Django",
+    "Scikit-learn", "Keras", "SQL", "Git", "Postman", "LeetCode"
+  ]
+
   return (
     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
       <Paper
@@ -83,24 +99,30 @@ const RadarChart: React.FC<{ data: number[]; labels: string[] }> = ({ data, labe
           background: "linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(249, 250, 251, 1) 100%)",
         }}
       >
-        <Typography
-          variant="h6"
-          align="center"
-          gutterBottom
-          sx={{
-            fontWeight: 600,
-            mb: 3,
-            background: "linear-gradient(90deg, #6366f1, #ec4899)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          Technical Skills
-        </Typography>
+
         <Box sx={{ height: 400, maxWidth: 600, mx: "auto" }}>
-          <Radar data={chartData}
-           options={options} 
-           />
+          <Radar data={chartData} options={options} />
+        </Box>
+
+        {/* Additional Skills */}
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <Typography variant="subtitle1" fontWeight={600}>
+            Also Familiar With
+          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 1, mt: 1 }}>
+            {additionalSkills.map((skill) => (
+              <Chip
+                key={skill}
+                label={skill}
+                size="small"
+                sx={{
+                  backgroundColor: "rgba(99, 102, 241, 0.1)",
+                  color: "#6366f1",
+                  fontWeight: 500,
+                }}
+              />
+            ))}
+          </Box>
         </Box>
       </Paper>
     </motion.div>

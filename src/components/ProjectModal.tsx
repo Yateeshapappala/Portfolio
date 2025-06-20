@@ -16,11 +16,11 @@ import {
   useTheme,
   Divider,
 } from "@mui/material"
-import type { FrontendProject } from "./data/projects"
 import CloseIcon from "@mui/icons-material/Close"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import { motion, AnimatePresence } from "framer-motion"
+import type { FrontendProject } from "./data/projects"
 
 const ProjectModal: React.FC<{
   open: boolean
@@ -37,13 +37,14 @@ const ProjectModal: React.FC<{
           open={open}
           onClose={onClose}
           fullScreen={fullScreen}
-          slotProps={{
-            paper: {
-              style: {
-                borderRadius: 16,
-                overflow: "hidden",
-                maxWidth: "800px",
-              },
+          scroll="body"
+          PaperProps={{
+            sx: {
+              maxWidth: 800,
+              width: "100%",
+              m: 2,
+              borderRadius: 3,
+              overflow: "hidden",
             },
           }}
         >
@@ -53,6 +54,7 @@ const ProjectModal: React.FC<{
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
+            {/* Top Header with Gradient */}
             <Box sx={{ position: "relative" }}>
               <Box
                 sx={{
@@ -78,6 +80,7 @@ const ProjectModal: React.FC<{
                 </IconButton>
               </Box>
 
+              {/* Modal Card */}
               <Box
                 sx={{
                   position: "relative",
@@ -95,76 +98,127 @@ const ProjectModal: React.FC<{
                   </Typography>
                 </DialogTitle>
 
-                <DialogContent sx={{ p: 0 }}>
-                  <Typography variant="body1" sx={{ mb: 3 }}>
-                    {project.description}
-                  </Typography>
+                {/* Scrollable Content */}
+                <DialogContent
+                  sx={{
+                    p: 0,
+                    maxHeight: fullScreen ? "calc(100vh - 180px)" : 600,
+                    overflowY: "auto",
+                  }}
+                >
+                  
 
-                  <Box sx={{ mb: 3 }}>
-                    <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
-                      Technologies
+                  <Box sx={{ px: 3, pb: 3 }}>
+                    {/* Description */}
+                    <Typography variant="body1" sx={{ mb: 3 }}>
+                      {project.description}
                     </Typography>
-                    <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
-                      {project.techStack.map((tech) => (
-                        <Chip
-                          key={tech}
-                          label={tech}
-                          size="small"
+
+                    {/* Tech Stack */}
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
+                        Technologies
+                      </Typography>
+                      <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                        {project.techStack.map((tech) => (
+                          <Chip
+                            key={tech}
+                            label={tech}
+                            size="small"
+                            sx={{
+                              backgroundColor: "rgba(99, 102, 241, 0.1)",
+                              color: "#6366f1",
+                              fontWeight: 500,
+                            }}
+                          />
+                        ))}
+                      </Stack>
+                    </Box>
+
+                    <Divider sx={{ my: 3 }} />
+
+                    {/* Features */}
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
+                        Key Features
+                      </Typography>
+                      <Box component="ul" sx={{ pl: 2, mt: 1 }}>
+                        {project.features.map((feature) => (
+                          <Box
+                            component="li"
+                            key={feature}
+                            sx={{ mb: 1, color: "text.secondary" }}
+                          >
+                            <Typography variant="body2">{feature}</Typography>
+                          </Box>
+                        ))}
+                      </Box>
+                    </Box>
+
+                    {/* Challenges */}
+                    <Box>
+                      <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
+                        Challenges & Solutions
+                      </Typography>
+                      <Box component="ul" sx={{ pl: 2, mt: 1 }}>
+                        {project.challenges.map((challenge) => (
+                          <Box
+                            component="li"
+                            key={challenge}
+                            sx={{ mb: 1, color: "text.secondary" }}
+                          >
+                            <Typography variant="body2">{challenge}</Typography>
+                          </Box>
+                        ))}
+                      </Box>
+                    </Box>
+                  </Box>
+
+                  {/* Screenshot Image */}
+                  {project.screenshots?.[0] && (
+                    <Box sx={{ mb: 4 }}>
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight={600}
+                        sx={{ mb: 2, textAlign: "center" }}
+                      >
+                        Project Preview
+                      </Typography>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          borderRadius: 3,
+                          overflow: "hidden",
+                          mx: "auto",
+                          maxWidth: "100%",
+                          border: "1px solid #e0e0e0",
+                          boxShadow: 3,
+                          transition: "transform 0.3s ease-in-out",
+                          "&:hover img": {
+                            transform: "scale(1.03)",
+                          },
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          src={project.screenshots[0]}
+                          alt={`${project.title} screenshot`}
                           sx={{
-                            backgroundColor: "rgba(99, 102, 241, 0.1)",
-                            color: "#6366f1",
-                            fontWeight: 500,
+                            width: "100%",
+                            maxHeight: 300,
+                            objectFit: "cover",
+                            transition: "transform 0.3s ease",
                           }}
                         />
-                      ))}
-                    </Stack>
-                  </Box>
-
-                  <Divider sx={{ my: 3 }} />
-
-                  <Box sx={{ mb: 3 }}>
-                    <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
-                      Key Features
-                    </Typography>
-                    <Box component="ul" sx={{ pl: 2, mt: 1 }}>
-                      {project.features.map((feature) => (
-                        <Box
-                          component="li"
-                          key={feature}
-                          sx={{
-                            mb: 1,
-                            color: "text.secondary",
-                          }}
-                        >
-                          <Typography variant="body2">{feature}</Typography>
-                        </Box>
-                      ))}
+                      </Box>
                     </Box>
-                  </Box>
-
-                  <Box>
-                    <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
-                      Challenges & Solutions
-                    </Typography>
-                    <Box component="ul" sx={{ pl: 2, mt: 1 }}>
-                      {project.challenges.map((challenge) => (
-                        <Box
-                          component="li"
-                          key={challenge}
-                          sx={{
-                            mb: 1,
-                            color: "text.secondary",
-                          }}
-                        >
-                          <Typography variant="body2">{challenge}</Typography>
-                        </Box>
-                      ))}
-                    </Box>
-                  </Box>
+                  )}
                 </DialogContent>
               </Box>
             </Box>
 
+            {/* Bottom Actions */}
             <DialogActions sx={{ p: 3, pt: 0 }}>
               <Button
                 onClick={onClose}
