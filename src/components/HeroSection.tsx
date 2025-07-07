@@ -1,23 +1,40 @@
 "use client"
 
 import type React from "react"
-import { Box, Typography, Button, Container } from "@mui/material"
+import {
+  Box,
+  Typography,
+  Button,
+  Container,
+  useTheme,
+} from "@mui/material"
 import { motion } from "framer-motion"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 
-const HeroSection: React.FC<{
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+}
+
+type Props = {
   handleViewProjects: () => void
   handleContact: () => void
-}> = ({ handleViewProjects, handleContact }) => {
+}
+
+const HeroSection: React.FC<Props> = ({ handleViewProjects, handleContact }) => {
+  const theme = useTheme()
+
+  const highlightGradient = `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
+
   return (
     <Box
-      sx={{
+      sx={theme => ({
         position: "relative",
         overflow: "hidden",
         py: { xs: 8, md: 12 },
-        background: "linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%)",
+        background: `linear-gradient(135deg, ${theme.palette.background.default} 0%, ${theme.palette.primary.light}10 100%)`,
         borderRadius: "0 0 24px 24px",
-      }}
+      })}
     >
       <Container maxWidth="lg">
         <Box
@@ -28,9 +45,9 @@ const HeroSection: React.FC<{
             gap: 8,
           }}
         >
-          {/* Left Section */}
+          {/* Text Section */}
           <Box sx={{ flex: 1 }}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <motion.div {...fadeInUp} transition={{ duration: 0.6 }}>
               <Typography
                 variant="h2"
                 component="h1"
@@ -38,7 +55,7 @@ const HeroSection: React.FC<{
                   fontSize: { xs: "2.4rem", md: "3.4rem" },
                   fontWeight: 800,
                   mb: 2,
-                  background: "linear-gradient(90deg, #6366f1, #ec4899)",
+                  background: highlightGradient,
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
@@ -47,42 +64,29 @@ const HeroSection: React.FC<{
               </Typography>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Typography
-                variant="h5"
-                color="text.secondary"
-                sx={{
-                  mb: 4,
-                  fontWeight: 400,
-                  lineHeight: 1.5,
-                }}
-              >
-                I build scalable web applications and AI solutions using modern technologies like React, Node.js, and TensorFlow.
+            <motion.div {...fadeInUp} transition={{ duration: 0.6, delay: 0.2 }}>
+              <Typography variant="h5" sx={{ mb: 4, fontWeight: 400, color: "text.secondary" }}>
+                I design scalable web apps & intelligent ML solutions.
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 3, color: "text.secondary" }}>
+                I’m passionate about crafting seamless user experiences and solving real-world problems with code.
               </Typography>
             </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            <motion.div {...fadeInUp} transition={{ duration: 0.6, delay: 0.4 }}>
               <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                 <Button
                   variant="contained"
                   size="large"
                   endIcon={<ArrowForwardIcon />}
+                  onClick={handleViewProjects}
+                  aria-label="View Projects"
                   sx={{
-                    background: "linear-gradient(90deg, #6366f1, #ec4899)",
+                    background: highlightGradient,
                     "&:hover": {
-                      background: "linear-gradient(90deg, #4f46e5, #db2777)",
+                      background: `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`,
                     },
                   }}
-                  onClick={handleViewProjects}
                 >
                   View Projects
                 </Button>
@@ -90,12 +94,13 @@ const HeroSection: React.FC<{
                   variant="outlined"
                   size="large"
                   onClick={handleContact}
+                  aria-label="Contact Me"
                   sx={{
-                    borderColor: "#6366f1",
-                    color: "#6366f1",
+                    borderColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.main,
                     "&:hover": {
-                      borderColor: "#4f46e5",
-                      backgroundColor: "rgba(99, 102, 241, 0.04)",
+                      borderColor: theme.palette.primary.dark,
+                      backgroundColor: `${theme.palette.secondary.light}10`,
                     },
                   }}
                 >
@@ -104,12 +109,7 @@ const HeroSection: React.FC<{
               </Box>
             </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
+            <motion.div {...fadeInUp} transition={{ duration: 0.6, delay: 0.6 }}>
               <Box sx={{ display: "flex", gap: 3, mt: 6 }}>
                 {[
                   { number: "3+", label: "Projects in Production" },
@@ -129,15 +129,13 @@ const HeroSection: React.FC<{
             </motion.div>
           </Box>
 
-          {/* Profile Image */}
+          {/* Image Section */}
           <Box sx={{ flex: 1 }}>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               style={{
-                position: "relative",
-                height: "100%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -150,16 +148,16 @@ const HeroSection: React.FC<{
                   borderRadius: "24px",
                   overflow: "hidden",
                   position: "relative",
-                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                  background: "linear-gradient(135deg, #6366f1 0%, #ec4899 100%)",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  boxShadow:
+                    "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                  background: `linear-gradient(135deg, ${theme.palette.background.paper}, ${theme.palette.primary.dark})`,
                 }}
               >
                 <img
                   src="/images/profile.png"
                   alt="Yateesha Pappala profile picture"
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     width: "100%",
                     height: "100%",
@@ -169,14 +167,14 @@ const HeroSection: React.FC<{
                 />
               </Box>
 
-              {/* Blurred Decorations */}
+              {/* Decorative Blurs */}
               <Box
                 sx={{
                   position: "absolute",
                   width: "150px",
                   height: "150px",
                   borderRadius: "24px",
-                  background: "rgba(236, 72, 153, 0.3)",
+                  background: `${theme.palette.primary.light}4D`,
                   top: "-20px",
                   right: "-20px",
                   zIndex: -1,
@@ -189,7 +187,7 @@ const HeroSection: React.FC<{
                   width: "100px",
                   height: "100px",
                   borderRadius: "50%",
-                  background: "rgba(99, 102, 241, 0.3)",
+                  background: `${theme.palette.primary.light}4D`,
                   bottom: "-10px",
                   left: "-10px",
                   zIndex: -1,
@@ -201,14 +199,14 @@ const HeroSection: React.FC<{
         </Box>
       </Container>
 
-      {/* Background Gradient Decorations */}
+      {/* Background Decor */}
       <Box
         sx={{
           position: "absolute",
           width: "300px",
           height: "300px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 70%)",
+          background: `radial-gradient(circle, ${theme.palette.primary.light}1A 0%, ${theme.palette.primary.light}00 70%)`,
           top: "-100px",
           right: "-100px",
           zIndex: 0,
@@ -220,7 +218,7 @@ const HeroSection: React.FC<{
           width: "200px",
           height: "200px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(236, 72, 153, 0) 70%)",
+          background: "radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0) 70%)",
           bottom: "-50px",
           left: "10%",
           zIndex: 0,

@@ -32,17 +32,6 @@ export const projects: FrontendProject[] = [
   },
   {
     id: '2',
-    title: 'Personal Portfolio',
-    description: 'A personal portfolio website to showcase my work and projects.',
-    techStack: ['React', 'TypeScript', 'MUI', 'CSS'],
-    liveDemoUrl: 'https://yateesha-portfolio.vercel.app/',
-    githubUrl: 'https://github.com/username/portfolio',
-    features: ['Responsive design', 'Dark mode', 'Smooth animations'],
-    challenges: ['Integrating dark mode', 'Making the layout responsive'],
-    screenshots: ['/assets/screenshot1.jpg', '/assets/screenshot2.jpg'],
-  },
-  {
-    id: '3',
     title: 'QR Code Generator',
     description: 'A lightweight QR code generator built using vanilla HTML, CSS, and JavaScript. It allows users to generate and download QR codes for any input text.',
     techStack: ['HTML', 'CSS', 'JavaScript'],
@@ -53,7 +42,7 @@ export const projects: FrontendProject[] = [
     screenshots: ['/assets/qr-code-screenshot.png'],
   },
   {
-    id: '4',
+    id: '3',
     title: 'Task Manager',
     description: 'A task management app with drag-and-drop functionality.',
     techStack: ['React', 'Redux', 'TypeScript'],
@@ -64,7 +53,7 @@ export const projects: FrontendProject[] = [
     screenshots: ['/assets/screenshot1.png', '/assets/screenshot2.png'],
   },
   {
-    id: '5',
+    id: '4',
     title: 'Memory Matrix',
     description:
       'A fun browser-based memory game where players flip cards to find matching image pairs.',

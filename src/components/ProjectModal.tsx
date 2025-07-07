@@ -29,6 +29,7 @@ const ProjectModal: React.FC<{
 }> = ({ open, onClose, project }) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const isDarkMode = theme.palette.mode === "dark"
 
   return (
     <AnimatePresence>
@@ -45,6 +46,7 @@ const ProjectModal: React.FC<{
               m: 2,
               borderRadius: 3,
               overflow: "hidden",
+              backgroundColor: theme.palette.background.paper,
             },
           }}
         >
@@ -59,7 +61,7 @@ const ProjectModal: React.FC<{
               <Box
                 sx={{
                   height: "120px",
-                  background: "linear-gradient(135deg, #6366f1, #ec4899)",
+                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                   position: "relative",
                 }}
               >
@@ -69,7 +71,7 @@ const ProjectModal: React.FC<{
                     position: "absolute",
                     top: 8,
                     right: 8,
-                    color: "white",
+                    color: theme.palette.common.white,
                     backgroundColor: "rgba(255, 255, 255, 0.2)",
                     "&:hover": {
                       backgroundColor: "rgba(255, 255, 255, 0.3)",
@@ -87,9 +89,9 @@ const ProjectModal: React.FC<{
                   mt: -6,
                   mx: 3,
                   p: 3,
-                  backgroundColor: "white",
+                  backgroundColor: theme.palette.background.paper,
                   borderRadius: 3,
-                  boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                  boxShadow: theme.shadows[4],
                 }}
               >
                 <DialogTitle sx={{ p: 0, mb: 2 }}>
@@ -98,7 +100,6 @@ const ProjectModal: React.FC<{
                   </Typography>
                 </DialogTitle>
 
-                {/* Scrollable Content */}
                 <DialogContent
                   sx={{
                     p: 0,
@@ -106,15 +107,11 @@ const ProjectModal: React.FC<{
                     overflowY: "auto",
                   }}
                 >
-                  
-
                   <Box sx={{ px: 3, pb: 3 }}>
-                    {/* Description */}
                     <Typography variant="body1" sx={{ mb: 3 }}>
                       {project.description}
                     </Typography>
 
-                    {/* Tech Stack */}
                     <Box sx={{ mb: 3 }}>
                       <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
                         Technologies
@@ -126,8 +123,8 @@ const ProjectModal: React.FC<{
                             label={tech}
                             size="small"
                             sx={{
-                              backgroundColor: "rgba(99, 102, 241, 0.1)",
-                              color: "#6366f1",
+                              backgroundColor: theme.palette.primary[isDarkMode ? "dark" : "light"],
+                              color: theme.palette.primary.main,
                               fontWeight: 500,
                             }}
                           />
@@ -137,7 +134,6 @@ const ProjectModal: React.FC<{
 
                     <Divider sx={{ my: 3 }} />
 
-                    {/* Features */}
                     <Box sx={{ mb: 3 }}>
                       <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
                         Key Features
@@ -147,7 +143,7 @@ const ProjectModal: React.FC<{
                           <Box
                             component="li"
                             key={feature}
-                            sx={{ mb: 1, color: "text.secondary" }}
+                            sx={{ mb: 1, color: theme.palette.text.secondary }}
                           >
                             <Typography variant="body2">{feature}</Typography>
                           </Box>
@@ -155,7 +151,6 @@ const ProjectModal: React.FC<{
                       </Box>
                     </Box>
 
-                    {/* Challenges */}
                     <Box>
                       <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
                         Challenges & Solutions
@@ -165,7 +160,7 @@ const ProjectModal: React.FC<{
                           <Box
                             component="li"
                             key={challenge}
-                            sx={{ mb: 1, color: "text.secondary" }}
+                            sx={{ mb: 1, color: theme.palette.text.secondary }}
                           >
                             <Typography variant="body2">{challenge}</Typography>
                           </Box>
@@ -174,7 +169,6 @@ const ProjectModal: React.FC<{
                     </Box>
                   </Box>
 
-                  {/* Screenshot Image */}
                   {project.screenshots?.[0] && (
                     <Box sx={{ mb: 4 }}>
                       <Typography
@@ -192,8 +186,8 @@ const ProjectModal: React.FC<{
                           overflow: "hidden",
                           mx: "auto",
                           maxWidth: "100%",
-                          border: "1px solid #e0e0e0",
-                          boxShadow: 3,
+                          border: `1px solid ${theme.palette.divider}`,
+                          boxShadow: theme.shadows[3],
                           transition: "transform 0.3s ease-in-out",
                           "&:hover img": {
                             transform: "scale(1.03)",
@@ -224,11 +218,11 @@ const ProjectModal: React.FC<{
                 onClick={onClose}
                 variant="outlined"
                 sx={{
-                  borderColor: "#6366f1",
-                  color: "#6366f1",
+                  borderColor: theme.palette.primary.main,
+                  color: theme.palette.primary.main,
                   "&:hover": {
-                    borderColor: "#4f46e5",
-                    backgroundColor: "rgba(99, 102, 241, 0.04)",
+                    borderColor: theme.palette.primary.dark,
+                    backgroundColor: theme.palette.action.hover,
                   },
                 }}
               >
@@ -240,9 +234,9 @@ const ProjectModal: React.FC<{
                 variant="contained"
                 startIcon={<OpenInNewIcon fontSize="small" />}
                 sx={{
-                  background: "linear-gradient(90deg, #6366f1, #8b5cf6)",
+                  background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
                   "&:hover": {
-                    background: "linear-gradient(90deg, #4f46e5, #7c3aed)",
+                    background: `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`,
                   },
                 }}
               >
@@ -254,9 +248,9 @@ const ProjectModal: React.FC<{
                 variant="contained"
                 startIcon={<GitHubIcon fontSize="small" />}
                 sx={{
-                  background: "linear-gradient(90deg, #8b5cf6, #ec4899)",
+                  background: `linear-gradient(90deg, ${theme.palette.secondary.main}, ${theme.palette.error.main})`,
                   "&:hover": {
-                    background: "linear-gradient(90deg, #7c3aed, #db2777)",
+                    background: `linear-gradient(90deg, ${theme.palette.secondary.dark}, ${theme.palette.error.dark})`,
                   },
                 }}
               >

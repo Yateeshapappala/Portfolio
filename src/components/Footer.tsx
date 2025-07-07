@@ -8,21 +8,26 @@ import {
   IconButton,
   Link,
   Divider,
+  useTheme,
 } from "@mui/material"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
 import EmailIcon from "@mui/icons-material/Email"
 
 const Footer: React.FC = () => {
+  const theme = useTheme()
+  const primaryGradient = "linear-gradient(90deg, #6366f1, #ec4899)"
+  const highlightColor = theme.palette.primary.main
+  const isDark = theme.palette.mode === "dark"
+
   return (
     <Box
       component="footer"
       sx={{
         py: 6,
         mt: 8,
-        backgroundColor: "#f8fafc",
-        borderTop: "1px solid",
-        borderColor: "divider",
+        backgroundColor: theme.palette.background.paper,
+        borderTop: `1px solid ${theme.palette.divider}`,
       }}
     >
       <Container maxWidth="lg">
@@ -42,7 +47,7 @@ const Footer: React.FC = () => {
               sx={{
                 fontWeight: 700,
                 mb: 2,
-                background: "linear-gradient(90deg, #6366f1, #ec4899)",
+                background: primaryGradient,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -53,25 +58,33 @@ const Footer: React.FC = () => {
               Passionate full-stack developer and ML enthusiast crafting modern digital experiences.
             </Typography>
             <Box sx={{ display: "flex", gap: 1 }}>
-              <Link href="https://github.com/Yateeshapappala" target="_blank" rel="noopener" color="inherit">
-                <IconButton size="small" sx={{ color: "#6366f1" }}>
-                  <GitHubIcon fontSize="small" />
-                </IconButton>
-              </Link>
-              <Link href="https://www.linkedin.com/in/yateesha-pappala-11047922a/" target="_blank" rel="noopener" color="inherit">
-                <IconButton size="small" sx={{ color: "#6366f1" }}>
-                  <LinkedInIcon fontSize="small" />
-                </IconButton>
-              </Link>
-              <Link href="mailto:yateeshapappala@gmail.com" color="inherit">
-                <IconButton size="small" sx={{ color: "#6366f1" }}>
-                  <EmailIcon fontSize="small" />
-                </IconButton>
-              </Link>
+              {[
+                {
+                  icon: <GitHubIcon fontSize="small" />,
+                  href: "https://github.com/Yateeshapappala",
+                  label: "GitHub",
+                },
+                {
+                  icon: <LinkedInIcon fontSize="small" />,
+                  href: "https://www.linkedin.com/in/yateesha-pappala-11047922a/",
+                  label: "LinkedIn",
+                },
+                {
+                  icon: <EmailIcon fontSize="small" />,
+                  href: "mailto:yateeshapappala@gmail.com",
+                  label: "Email",
+                },
+              ].map(({ icon, href, label }) => (
+                <Link key={label} href={href} target="_blank" rel="noopener" color="inherit">
+                  <IconButton size="small" sx={{ color: highlightColor }}>
+                    {icon}
+                  </IconButton>
+                </Link>
+              ))}
             </Box>
           </Box>
 
-          {/* Resources or Links */}
+          {/* Resource Links */}
           <Box sx={{ flex: { xs: "1 1 50%", md: "1 1 15%" } }}>
             <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 2 }}>
               Links
@@ -92,7 +105,10 @@ const Footer: React.FC = () => {
                     color="text.secondary"
                     sx={{
                       fontSize: "0.875rem",
-                      "&:hover": { color: "#6366f1" },
+                      transition: "color 0.3s",
+                      "&:hover": {
+                        color: highlightColor,
+                      },
                     }}
                   >
                     {label}
@@ -111,7 +127,7 @@ const Footer: React.FC = () => {
               href="mailto:yateeshapappala@gmail.com"
               underline="hover"
               sx={{
-                color: "#6366f1",
+                color: highlightColor,
                 fontWeight: 500,
                 fontSize: "0.875rem",
               }}

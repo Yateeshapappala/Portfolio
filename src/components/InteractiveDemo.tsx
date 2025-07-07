@@ -2,7 +2,16 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Button, Box, Paper, Typography, Tabs, Tab, Divider } from "@mui/material"
+import {
+  Button,
+  Box,
+  Paper,
+  Typography,
+  Tabs,
+  Tab,
+  Divider,
+  useTheme,
+} from "@mui/material"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { motion, AnimatePresence } from "framer-motion"
@@ -12,10 +21,14 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 const InteractiveDemo: React.FC = () => {
   const [showCode, setShowCode] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
+  const theme = useTheme()
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue)
   }
+
+  const gradient = "linear-gradient(90deg, #6366f1, #ec4899)"
+  const hoverGradient = "linear-gradient(90deg, #4f46e5, #db2777)"
 
   const buttonCode = `
 import { Button } from '@mui/material';
@@ -24,16 +37,15 @@ const GradientButton = () => (
   <Button 
     variant="contained" 
     sx={{ 
-      background: 'linear-gradient(90deg, #6366f1, #ec4899)',
+      background: '${gradient}',
       '&:hover': {
-        background: 'linear-gradient(90deg, #4f46e5, #db2777)',
+        background: '${hoverGradient}',
       }
     }}
   >
     Click Me
   </Button>
-);
-  `
+);`.trim()
 
   const cardCode = `
 import { Card, CardContent, Typography } from '@mui/material';
@@ -56,7 +68,7 @@ const AnimatedCard = () => (
           left: 0,
           width: '100%',
           height: '4px',
-          background: 'linear-gradient(90deg, #6366f1, #ec4899)',
+          background: '${gradient}',
         }
       }}
     >
@@ -67,8 +79,7 @@ const AnimatedCard = () => (
       </CardContent>
     </Card>
   </motion.div>
-);
-  `
+);`.trim()
 
   const tabContent = [
     {
@@ -78,9 +89,9 @@ const AnimatedCard = () => (
         <Button
           variant="contained"
           sx={{
-            background: "linear-gradient(90deg, #6366f1, #ec4899)",
+            background: gradient,
             "&:hover": {
-              background: "linear-gradient(90deg, #4f46e5, #db2777)",
+              background: hoverGradient,
             },
           }}
         >
@@ -106,7 +117,7 @@ const AnimatedCard = () => (
                 left: 0,
                 width: "100%",
                 height: "4px",
-                background: "linear-gradient(90deg, #6366f1, #ec4899)",
+                background: gradient,
               },
             }}
           >
@@ -118,31 +129,55 @@ const AnimatedCard = () => (
   ]
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <Paper
         elevation={0}
         sx={{
           borderRadius: 4,
           overflow: "hidden",
-          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+          backgroundColor: theme.palette.background.paper,
+          boxShadow:
+            theme.palette.mode === "dark"
+              ? "0 4px 12px rgba(0,0,0,0.4)"
+              : "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)",
         }}
       >
-        <Box sx={{ p: 3, backgroundColor: "#f8fafc" }}>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+        <Box sx={{ p: 3 }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: 2,
+            }}
+          >
             <Typography variant="h6" fontWeight={600}>
               Interactive Component Demo
             </Typography>
             <Button
               variant="outlined"
               size="small"
-              startIcon={showCode ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
-              onClick={() => setShowCode(!showCode)}
+              startIcon={
+                showCode ? (
+                  <VisibilityOffIcon fontSize="small" />
+                ) : (
+                  <VisibilityIcon fontSize="small" />
+                )
+              }
+              onClick={() => setShowCode((prev) => !prev)}
               sx={{
-                borderColor: "#6366f1",
-                color: "#6366f1",
+                borderColor: theme.palette.primary.main,
+                color: theme.palette.primary.main,
                 "&:hover": {
-                  borderColor: "#4f46e5",
-                  backgroundColor: "rgba(99, 102, 241, 0.04)",
+                  borderColor: theme.palette.primary.dark,
+                  backgroundColor:
+                    theme.palette.mode === "dark"
+                      ? "rgba(99, 102, 241, 0.1)"
+                      : "rgba(99, 102, 241, 0.04)",
                 },
               }}
             >
@@ -155,13 +190,13 @@ const AnimatedCard = () => (
             onChange={handleTabChange}
             sx={{
               "& .MuiTabs-indicator": {
-                backgroundColor: "#6366f1",
+                backgroundColor: theme.palette.primary.main,
               },
               "& .MuiTab-root": {
                 textTransform: "none",
                 fontWeight: 500,
                 "&.Mui-selected": {
-                  color: "#6366f1",
+                  color: theme.palette.primary.main,
                   fontWeight: 600,
                 },
               },
@@ -175,7 +210,14 @@ const AnimatedCard = () => (
 
         <Divider />
 
-        <Box sx={{ p: 4, display: "flex", justifyContent: "center", backgroundColor: "white" }}>
+        <Box
+          sx={{
+            p: 4,
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: theme.palette.background.default,
+          }}
+        >
           {tabContent[activeTab].component}
         </Box>
 

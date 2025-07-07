@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Container, Typography, Box, } from "@mui/material"
+import { Container, Typography, Box } from "@mui/material"
 import { motion } from "framer-motion"
 import { projects, type FrontendProject } from "../components/data/projects"
 import ProjectModal from "../components/ProjectModal"
@@ -9,7 +9,19 @@ import { ProjectCard } from "../components/ProjectCard"
 import HeroSection from "../components/HeroSection"
 import Navbar from "../components/NavBar"
 import Footer from "../components/Footer"
-const Home = () => {
+
+const sectionFadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+}
+
+type Props = {
+  toggleTheme: () => void;
+  isDarkMode:boolean;
+}
+
+const Home: React.FC<Props>  = ({toggleTheme, isDarkMode}) => {
   const [selectedProject, setSelectedProject] = useState<FrontendProject>(projects[0])
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -18,41 +30,57 @@ const Home = () => {
     setModalOpen(true)
   }
 
+  const scrollToId = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: "smooth" })
+  }
+
   return (
     <>
-      <Navbar />
-      <HeroSection 
-      handleViewProjects={() => {
-        const el = document.getElementById("Projects");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }}
-      handleContact={() => {
-        const el = document.getElementById("Contact");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }} />
+      <Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode}/>
+      <HeroSection
+        handleViewProjects={() => scrollToId("Projects")}
+        handleContact={() => scrollToId("Contact")}
+      />
 
       <Container maxWidth="lg" sx={{ py: 8 }}>
+        {/* Projects Section */}
         <Box mb={8} id="Projects">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 4 }}>
-              <Typography
-                variant="h4"
+          <motion.div {...sectionFadeIn}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: 700,
+                mb: 4,
+                background: "linear-gradient(90deg, #6366f1, #ec4899)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Featured Projects
+            </Typography>
+          </motion.div>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 3,
+              justifyContent: "center",
+            }}
+          >
+            {projects.map((project, index) => (
+              <Box
+                key={project.id}
                 sx={{
-                  fontWeight: 700,
-                  background: "linear-gradient(90deg, #6366f1, #ec4899)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  flexBasis: { xs: "100%", sm: "48%", md: "30%" },
+                  minWidth: "280px",
                 }}
               >
-                Featured Projects
-              </Typography>
-            </Box>
-          </motion.div>
-
-          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, justifyContent: "center" }}>
-            {projects.map((project, index) => (
-              <Box key={project.id} sx={{ flexBasis: { xs: "100%", sm: "48%", md: "30%" } }}>
-                <ProjectCard project={project} onViewDetails={() => handleViewDetails(project)} index={index} />
+                <ProjectCard
+                  project={project}
+                  onViewDetails={() => handleViewDetails(project)}
+                  index={index}
+                />
               </Box>
             ))}
           </Box>
@@ -60,7 +88,7 @@ const Home = () => {
 
         {/* Skills Section */}
         <Box my={8} id="Skills">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div {...sectionFadeIn}>
             <Typography
               variant="h4"
               sx={{
@@ -74,13 +102,12 @@ const Home = () => {
               Technical Skills
             </Typography>
           </motion.div>
-          <RadarChart
-          />
+          <RadarChart />
         </Box>
-              
-        {/* Demo Section */}
+
+        {/* Interactive Components */}
         <Box my={8} id="Demo">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div {...sectionFadeIn}>
             <Typography
               variant="h4"
               sx={{
@@ -102,9 +129,12 @@ const Home = () => {
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
             Contact
           </Typography>
-          <Typography>Feel free to reach out via LinkedIn, GitHub, or email!</Typography>
+          <Typography>
+            Feel free to reach out via LinkedIn, GitHub, or email!
+          </Typography>
         </Box>
       </Container>
+
       <ProjectModal open={modalOpen} onClose={() => setModalOpen(false)} project={selectedProject} />
       <Footer />
     </>
